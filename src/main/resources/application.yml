@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8080
   servlet:
-    context-path: /study
+    context-path: /car
 
 spring:
-mvc:
-  pathmatch:
-    matching-strategy: ant_path_matcher
+#mvc:
+#  pathmatch:
+#    matching-strategy: ant_path_matcher
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
@@ -23,12 +23,12 @@ mvc:
     data: classpath:data.sql
     url: jdbc:h2:file:./data/dbAccount
     username: root
-    password: test123
+    password: root
     platform: org:hibernate:dialect:H2Dialect
   h2:
     console:
       enabled: true
-      path: /h2-console
+      path: /h2-admin
       settings:
         trace: false
         web-allow-others: false
