@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -41,9 +44,9 @@ public class RentCarTest extends TestBoot{
         List<RentRecord> rentRecords = new ArrayList<>();
         String startStr = "2023.02.25 00:00:00";
         String endStr = "2023.03.25 00:00:00";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-        Date start = sdf.parse(startStr);
-        Date end = sdf.parse(endStr);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss", Locale.ENGLISH);
+        LocalDate start = LocalDate.parse(startStr, formatter);
+        LocalDate end = LocalDate.parse(endStr, formatter);
         RentRecord rentRecord1 = new RentRecord();
         rentRecord1.setId(100L);
         rentRecord1.setCarModelId(1L);
@@ -53,8 +56,8 @@ public class RentCarTest extends TestBoot{
 
         startStr = "2023.03.10 00:00:00";
         endStr = "2023.04.01 00:00:00";
-        start = sdf.parse(startStr);
-        end = sdf.parse(endStr);
+        start = LocalDate.parse(startStr, formatter);
+        end = LocalDate.parse(endStr, formatter);
         RentRecord rentRecord2 = new RentRecord();
         rentRecord2.setId(200L);
         rentRecord2.setCarModelId(1L);
@@ -64,8 +67,8 @@ public class RentCarTest extends TestBoot{
 
         startStr = "2023.01.10 00:00:00";
         endStr = "2023.02.01 00:00:00";
-        start = sdf.parse(startStr);
-        end = sdf.parse(endStr);
+        start = LocalDate.parse(startStr, formatter);
+        end = LocalDate.parse(endStr, formatter);
         RentRecord rentRecord3 = new RentRecord();
         rentRecord3.setId(200L);
         rentRecord3.setCarModelId(2L);
@@ -75,15 +78,15 @@ public class RentCarTest extends TestBoot{
 
         startStr = "2023.02.27 00:00:00";
         endStr = "2023.03.01 00:00:00";
-        start = sdf.parse(startStr);
-        end = sdf.parse(endStr);
+        start = LocalDate.parse(startStr, formatter);
+        end = LocalDate.parse(endStr, formatter);
         List<RentRecord> records = rentService.getListOfUsedCarByModel(rentRecords, start, end);
         assertEquals(records.size(), 1);
 
         startStr = "2023.02.25 00:00:00";
         endStr = "2023.04.01 00:00:00";
-        start = sdf.parse(startStr);
-        end = sdf.parse(endStr);
+        start = LocalDate.parse(startStr, formatter);
+        end = LocalDate.parse(endStr, formatter);
         records = rentService.getListOfUsedCarByModel(rentRecords, start, end);
         assertEquals(records.size(), 2);
     }

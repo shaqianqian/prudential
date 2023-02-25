@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * 這邊的 @Getter 與 @Setter 是 lombok 的功能, 不採用 @Data 在底下說明
@@ -26,14 +26,14 @@ public class RentRecord implements Serializable {
     private Long carModelId;
 
     @Column(columnDefinition = "TIMESTAMP")
-    private Date startTime;
+    private LocalDate startTime;
 
     @Column(columnDefinition = "TIMESTAMP")
-    private Date endTime;
+    private LocalDate endTime;
 
     @Column(insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date createTime;
+    private LocalDate createTime;
 
     @Column(insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private Date updateTime;
+    private LocalDate upLocalDateTime;
 }

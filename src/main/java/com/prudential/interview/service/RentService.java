@@ -6,7 +6,7 @@ import com.prudential.interview.repository.RentRecordRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +15,7 @@ public class RentService {
     @Autowired
     private RentRecordRepo rentRecordRepo;
 
-    public List<RentRecord> getListOfUsedCarByModel(List<RentRecord> rentRecords, Date fromTime, Date toTime) {
+    public List<RentRecord> getListOfUsedCarByModel(List<RentRecord> rentRecords, LocalDate fromTime, LocalDate toTime) {
         List<RentRecord> rentRecordsInRange = rentRecords.stream().filter(rentRecord -> {
             if (rentRecord.getStartTime().compareTo(fromTime) <= 0 &&
                     rentRecord.getEndTime().compareTo(fromTime) >= 0 &&
