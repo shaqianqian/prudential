@@ -51,7 +51,7 @@ public class RentController {
         List<RentRecord> listOfUsedCarByModel = rentService.getListOfUsedCarByModel(rentRecords, req.getStartTime(), req.getEndTime());
         if (listOfUsedCarByModel.size() < stock.getQuantity()) {
             rentService.saveRentRecord(req);
-            rsp.setMsg("Rent car" + carModel.getModelName() + "successfully");
+            rsp.setMsg("Rent car " + carModel.getModelName() + " successfully");
             rsp.setStatus("succ");
         } else {
             rsp.setMsg("Out of stock, fail to rent car" + carModel.getModelName());
@@ -68,7 +68,6 @@ public class RentController {
             return queryAvailableCarListRsp;
         }
         List<CarModel> carModelList = carModelRepo.findAll();
-
         for (CarModel carModel : carModelList) {
             Stock totalStock = stockRepo.findByCarModelId(carModel.getId());
             if (totalStock == null || totalStock.getQuantity() == 0) {
@@ -120,7 +119,7 @@ public class RentController {
             return false;
         }
         if(req.getStartTime().before(new Date())){
-            rsp.setMsg("please dont choose a future time as start time");
+            rsp.setMsg("please choose a future time as start time");
             rsp.setStatus("fail");
             return false;
         }

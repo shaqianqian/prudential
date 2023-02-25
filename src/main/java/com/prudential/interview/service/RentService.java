@@ -15,22 +15,24 @@ public class RentService {
     @Autowired
     private RentRecordRepo rentRecordRepo;
 
-    public List<RentRecord> getListOfUsedCarByModel(List<RentRecord> rentRecords, Date fromTime, Date endTime) {
+    public List<RentRecord> getListOfUsedCarByModel(List<RentRecord> rentRecords, Date fromTime, Date toTime) {
         List<RentRecord> rentRecordsInRange = rentRecords.stream().filter(rentRecord -> {
-            if (rentRecord.getStartTime().after(fromTime) &&
-                    rentRecord.getStartTime().before(endTime)) {
+            if (rentRecord.getStartTime().compareTo(fromTime) <= 0 &&
+                    rentRecord.getEndTime().compareTo(fromTime) >= 0 &&
+                    rentRecord.getEndTime().compareTo(toTime) >= 0) {
                 return true;
             }
-            if (rentRecord.getEndTime().after(fromTime) &&
-                    rentRecord.getEndTime().before(endTime)) {
+            if (rentRecord.getEndTime().compareTo(toTime) >= 0 &&
+                    rentRecord.getStartTime().compareTo(fromTime) >= 0 &&
+                    rentRecord.getStartTime().compareTo(toTime) <= 0) {
                 return true;
             }
-            if (rentRecord.getStartTime().compareTo(fromTime)<=0 &&
-                    rentRecord.getEndTime().compareTo(endTime)>=0) {
+            if (rentRecord.getStartTime().compareTo(fromTime) <= 0 &&
+                    rentRecord.getEndTime().compareTo(toTime) >= 0) {
                 return true;
             }
-            if (rentRecord.getStartTime().compareTo(fromTime)>=0 &&
-                    rentRecord.getEndTime().compareTo(endTime)<=0) {
+            if (rentRecord.getStartTime().compareTo(fromTime) >= 0 &&
+                    rentRecord.getEndTime().compareTo(toTime) <= 0) {
                 return true;
             }
             return false;
